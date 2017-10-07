@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>Attendence</title>
+	</head>
+	<body>
+		<div>
+		{% for student in students %}
+			<div>
+			<p>{{student.name}}</p>
+			<img src="{{student.picture.url}}" alt="no image" style="width:50%"/>
+			</div>
+		{% endfor %}
+		</div>
+		<div>
+		{% for group in groups %}
+			<div>
+			<p>{{group.name}}</p>
+			<img src="{{group.picture.url}}" alt="no image" style="width:50%"/>
+			</div>
+		{% endfor%}
+		</div>
+	</body>
+</html>

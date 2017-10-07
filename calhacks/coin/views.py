@@ -12,7 +12,7 @@ def index(request):
 	if request.method == 'GET':
 		if request.GET.get('log in'):
 			return
-	if request.POST.post == ('log out'):
+	if request.POST.get == 'log out':
 		return
 	else:
 		return HttpResponseBadRequest
@@ -24,24 +24,35 @@ def creategroup(request):
 	if request.method == 'POST':
 		picture = request.POST.get('pic') #base64
 		name = request.POST.get('name')
+		info = request.POST.get('info')
 		form, imgstr = picture.split(';base64,') 
 		ext = form.split('/')[-1]
-		data = ContentFile(base64.b64decode(imgstr), name = name + '.'+ext) 
-
-		binaryImage = base64.decodebytes(imgstr)
-		print(binaryImage)
-		
-		print(binaryImage)
-		service = FaceAPI.FaceAPI()
-
-		detectedFaces = service.detectFace(binaryImage)
-		print(service.identifyFace(detectedFaces, 1))
-
-		new_group = StudyGroup(name = name, picture = data)
+		data = ContentFile(base64.b64decode(imgstr), name = name + '.'+ext)
+		new_group = StudyGroup(name = name, picture = data) # need to modify
 		new_group.save()
-		return JsonResponse({'status': 200, 'responseText': binaryImage})
+
+		# binaryImage = base64.decodebytes(imgstr)
+		# print(binaryImage)
+		
+		# print(binaryImage)
+		# service = FaceAPI.FaceAPI()
+
+		# detectedFaces = service.detectFace(binaryImage)
+		# print(service.identifyFace(detectedFaces, 1))
+		student_id = []
+		for i in student_id:
+			student = Student.objects.filter(student_id = i)[0]
+			student.study_groups.add(new_group)
+		return JsonResponse({'status': 200, 'responseText': 'success'})
 	return 
 
+@csrf_exempt
+def attendence(request):
+	if request.method == 'GET':
+		students = Student.objects.all()
+		groups = StudyGroup.objects.all()
+		return render(request, 'attendence.html',context = {'students': students, 'groups': groups})
+	#if request.method == 'POST':
 
-#def 
+
 

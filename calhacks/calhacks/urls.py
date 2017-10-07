@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index, name='index'),
     url(r'^creategroup/', views.creategroup, name='creategroup'),
+    url(r'^attendence/', views.attendence, name = 'attendence'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
