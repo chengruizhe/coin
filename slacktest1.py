@@ -3,7 +3,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64, sys
 
 from slackclient import SlackClient
 
-#client = SlackClient('xoxp-252836083635-252911914834-252852830323-7006c822107b7931c364b4af28c57ed4')
+# client = SlackClient('xoxp-252836083635-252911914834-252852830323-7006c822107b7931c364b4af28c57ed4')
 # slack_client.api_call("api.test")
 
 headers = {
@@ -14,12 +14,15 @@ headers = {
 
 diction = {}
 diction['token'] = 'xoxp-252836083635-252911914834-252852830323-7006c822107b7931c364b4af28c57ed4'
-diction['name'] = 'study group'
+diction['name'] = 'study group new'
 params = urllib.parse.urlencode(diction)
+# print ('params: ' + params)
 
 
-conn = http.client.HTTPSConnection('slack.com/api/groups.create')
-
-conn.request("POST", "?%s" % params, None, headers)
-
+conn = http.client.HTTPSConnection('slack.com')
+conn.request("POST", "/api/groups.create?%s" % params, None, headers)
+response = conn.getresponse()
+data = response.read()
+print(data)
+conn.close()
 
