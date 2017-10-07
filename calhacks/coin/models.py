@@ -9,6 +9,7 @@ class StudyGroup(models.Model):
 		return self.name
 
 class Student(models.Model):
+	person_id = models.CharField(max_length = 60, primary_key = True)
 	name = models.CharField(max_length = 30)
 	email = models.CharField(max_length = 30)
 	username = models.CharField(max_length = 20)
