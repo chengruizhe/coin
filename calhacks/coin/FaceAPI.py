@@ -115,6 +115,7 @@ class FaceAPI():
             data = response.read()
             print(data)
             conn.close()
+            return data
         except Exception as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
@@ -132,11 +133,11 @@ class FaceAPI():
             'returnFaceAttributes': '',
         })
 
-        body = [binaryImage]
+        body = binaryImage
 
         try:
             conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
-            conn.request("POST", "/face/v1.0/detect?%s" % params, json.dumps(body), headers)
+            conn.request("POST", "/face/v1.0/detect?%s" % params, binaryImage, headers)
             response = conn.getresponse()
             data = response.read()
             dataList = json.loads(data.decode('utf8'))

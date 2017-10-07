@@ -6,6 +6,7 @@ import base64
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from . import FaceAPI
+import json
 
 @csrf_exempt
 def index(request):
@@ -31,18 +32,13 @@ def creategroup(request):
 		new_group = StudyGroup(name = name, picture = data) # need to modify
 		new_group.save()
 
-		# binaryImage = base64.decodebytes(imgstr)
-		# print(binaryImage)
+		student_ids = personIDsFromImg(imgstr)
 		
-		# print(binaryImage)
-		# service = FaceAPI.FaceAPI()
-
-		# detectedFaces = service.detectFace(binaryImage)
-		# print(service.identifyFace(detectedFaces, 1))
-		student_id = []
-		for i in student_id:
-			student = Student.objects.filter(student_id = i)[0]
-			student.study_groups.add(new_group)
+		for i in student_ids:
+			student = Student.objects.filter(person_id = i)
+			if student:
+				student = student[0]
+				student.study_groups.add(new_group)
 		return JsonResponse({'status': 200, 'responseText': 'success'})
 	return 
 
@@ -53,6 +49,23 @@ def attendence(request):
 		groups = StudyGroup.objects.all()
 		return render(request, 'attendence.html',context = {'students': students, 'groups': groups})
 	#if request.method == 'POST':
+
+
+def personIDsFromImg(imgstr):
+	binImg = base64.b64decode(imgstr)
+	service = FaceAPI.FaceAPI()
+	detectedFaces = service.detectFace(binImg)
+	result = service.identifyFace(detectedFaces, 1)
+
+	student_ids = []
+
+	matchResult = json.loads(result.decode('utf8'))
+	for person in matchResult:
+		if person["candidates"]:
+			student_ids.append(person["candidates"][0]["personId"])
+	return student_ids
+
+
 
 
 
