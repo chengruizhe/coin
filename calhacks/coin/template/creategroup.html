@@ -137,8 +137,23 @@
     <img id="photo" alt="The screen capture will appear in this box." style='display: none;'>
   </div>
 
-</wrapper>
-</form>
+  <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" arialabelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            Create group
+            </div>
+            <div class="modal-body">
+            confirm
+            <img src= />
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button " id="submitdb" class="btn btn-success success">Submit</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
 </body>
 <script type="text/javascript">
 	(function() {
@@ -162,6 +177,7 @@
 	    photo = document.getElementById('photo');
 	    image = document.getElementById('image');
 	    startbutton = document.getElementById('startbutton');
+	    confirmPic = document.getElementById('confirmPic')
 	    navigator.getMedia = ( navigator.getUserMedia ||
 	                           navigator.webkitGetUserMedia ||
 	                           navigator.mozGetUserMedia ||
@@ -228,6 +244,7 @@
 	      var data = canvas.toDataURL('image/png');
 	      sendpic(data);
 	      photo.setAttribute('src', data);
+	      confirmPic.setAttribute('src', data);
 	    } else {
 	      clearphoto();
 	    }

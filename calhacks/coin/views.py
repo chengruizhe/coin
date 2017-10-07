@@ -32,7 +32,8 @@ def creategroup(request):
 		new_group = StudyGroup(name = name, picture = data) # need to modify
 		new_group.save()
 
-		student_ids = personIDsFromImg(imgstr)
+		faceAndStudentId = personIDsFromImg(imgstr)
+		student_ids = [faceAndStudentId[face] for face in faceAndStudentId.keys() if faceAndStudentId[face]]
 		
 		for i in student_ids:
 			student = Student.objects.filter(person_id = i)
@@ -57,12 +58,15 @@ def personIDsFromImg(imgstr):
 	detectedFaces = service.detectFace(binImg)
 	result = service.identifyFace(detectedFaces, 1)
 
-	student_ids = []
+	student_ids = {}
 
 	matchResult = json.loads(result.decode('utf8'))
 	for person in matchResult:
 		if person["candidates"]:
-			student_ids.append(person["candidates"][0]["personId"])
+			tempID = person["candidates"][0]["personId"]
+		else:
+			tempID = None
+		student_ids[person["faceId"]] = tempID
 	return student_ids
 
 
