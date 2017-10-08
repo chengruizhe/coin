@@ -45,7 +45,7 @@ def getFlag():      # Gets the boolean flag whether the current session has term
 import time, json
 import matplotlib.pyplot as plt
 
-delay = 10
+delay = 3
 
 def run():
     flag = True
@@ -90,8 +90,6 @@ def run():
         sadness.append(sadnesst / len(result))
         surprise.append(surpriset / len(result))
 
-        time.sleep(delay)
-
         plt.plot(anger, taxis)
         plt.plot(contempt, taxis)
         plt.plot(disgust, taxis)
@@ -102,5 +100,7 @@ def run():
         plt.plot(surprise, taxis)
         plt.legend(['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise'], loc='upper left')
         plt.savefig('emotions.png')
+
+        time.sleep(delay)
 
     return True
