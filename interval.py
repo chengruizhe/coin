@@ -1,4 +1,4 @@
-def getResult(imgURL):
+def getResult(img):
     ########### Python 3.2 #############
     import http.client, urllib.request, urllib.parse, urllib.error, base64, sys
 
@@ -12,7 +12,8 @@ def getResult(imgURL):
     })
 
     # Replace the example URL below with the URL of the image you want to analyze.
-    body = "{ 'url': '" + imgURL + "' }"
+    # body = "{ 'url': '" + imgURL + "' }"
+    body = img   # Takes binary
 
     try:
         # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
@@ -22,7 +23,7 @@ def getResult(imgURL):
         conn.request("POST", "/emotion/v1.0/recognize?%s" % params, body, headers)
         response = conn.getresponse()
         data = response.read()
-        print(data)
+        # print(data)
         conn.close()
     except Exception as e:
         print(e.args)
@@ -73,14 +74,14 @@ def run():
             neutralt += result[i]['scores']['neutral']
             sadnesst += result[i]['scores']['sadness']
             surpriset += result[i]['scores']['surprise']
-        anger.append(angert)
-        contempt.append(contemptt)
-        disgust.append(disgustt)
-        fear.append(feart)
-        happiness.append(happinesst)
-        neutral.append(neutralt)
-        sadness.append(sadnesst)
-        surprise.append(surpriset)
+        anger.append(angert / len(result))
+        contempt.append(contemptt / len(result))
+        disgust.append(disgustt / len(result))
+        fear.append(feart / len(result))
+        happiness.append(happinesst / len(result))
+        neutral.append(neutralt / len(result))
+        sadness.append(sadnesst / len(result))
+        surprise.append(surpriset / len(result))
 
         time.sleep(delay)
 
