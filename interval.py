@@ -63,9 +63,11 @@ def run():
         if not img:
             continue
 
+        """
         imgURL = uploadImage(img)
         if not imgURL:
             continue
+        """
 
         result = json.loads(getResult(imgURL).decode("utf8"))
         taxis.append(time.time() - t0)
@@ -90,15 +92,15 @@ def run():
 
         time.sleep(delay)
 
-    plt.plot(anger, taxis)
-    plt.plot(contempt, taxis)
-    plt.plot(disgust, taxis)
-    plt.plot(fear, taxis)
-    plt.plot(happiness, taxis)
-    plt.plot(neutral, taxis)
-    plt.plot(sadness, taxis)
-    plt.plot(surprise, taxis)
-    plt.legend(['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise'], loc='upper left')
-    plt.savefig('emotions.png')
+        plt.plot(anger, taxis)
+        plt.plot(contempt, taxis)
+        plt.plot(disgust, taxis)
+        plt.plot(fear, taxis)
+        plt.plot(happiness, taxis)
+        plt.plot(neutral, taxis)
+        plt.plot(sadness, taxis)
+        plt.plot(surprise, taxis)
+        plt.legend(['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise'], loc='upper left')
+        plt.savefig('emotions.png')
 
     return True
