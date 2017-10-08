@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <style media="screen" type="text/css">
-  #nav {
+ #nav {
+    z-index: 3;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -35,22 +36,39 @@
     text-transform: uppercase;
     font-family: 'Josefin Sans', serif;
     cursor:pointer;
-    font-family: 'Josefin Sans', serif;
   }
-  .navbar-item, #navbar-item-l: hover{
+  .navbar-item:hover {
     opacity: .8;
   }
+
+  #navbar-item-l:hover {
+    opacity: .8;
+  }
+
+
+  a:link {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+  color:white;}
+
+  a:visited {
+    text-decoration:  none;
+    color:white;
+  }
+
+
   #navbar-item-l {
     position: relative;
   }
+
   #navbar-item-search {
-	   /*padding-bottom: 10px;*/
+     /*padding-bottom: 10px;*/
     display: inline-block;
     position: absolute;
     /*left: 100px;*/
     top:3px;
-	  bottom: 3px;
-	  right: 0px;
+    bottom: 3px;
+    right: 0px;
   }
   .searchbar {
     color: white;
@@ -66,8 +84,11 @@
   .searchbar:focus {
     width: 200px;
     margin-left: 0px;
-    transition: 0.3s;
-  }
+    transition: 0.3s;}
+
+
+
+
   .camera {
     position: absolute;
     text-align: center;
@@ -75,35 +96,43 @@
     left:50%;
     transform: translateX(-50%);
   }
+
   #video {
     position: relative;
+    /*width: 500px;*/
   }
+
   #startbutton {
     position: relative;
     /*display: inline-block;*/
     font-size: 14px;
     color: white;
     background: #3EB890;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     padding-left: 23px;
     padding-right: 23px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
     letter-spacing: 1px;
     font-family: 'Josefin Sans', serif;
   }
-  /*#wrapper {
+  
+  #wrapper {
     text-align: center;
+    z-index: 1
   }
+
   #canvas{
     position: relative;
     top: 360px;
-    left:50%;
-    transform: translateX(-50%);
+    /*width: 500px;*/
+    /*left:50%;
+    transform: translateX(-50%);*/
   }
+
   .output{
     position: relative;
     top: 450px;
@@ -113,18 +142,20 @@
 </style>
 
 </head>
-<body>
+<body background="/media/geom2.jpg">
+    
+  <div id="nav">
+    <div id="navbar">
+        <!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+        <div class="navbar-item"><a style="text-decoration:none"  href='../createattend'>Take Attendance</a></div>
+        <div class="navbar-item"><a href='../attendance'>Present Students</a></div>
+        <div class="navbar-item"><a href='../monitor'>Monitor</a></div>
+        <div class="navbar-item"><a href='../creategroup'>Create Group</a></div>
+        <div id="navbar-item-l"><a href='../seegps'>See Groups</a></div>
+        <div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
 
-<div id="nav">
-  	<div id="navbar">
-  			<!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
-  			<div class="navbar-item">Attendence</div>
-  			<div class="navbar-item">Focus</div>
-        <div id="navbar-item-l">Group</div>
-  			<div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
-
-  		</div>
-  </div>
+      </div>
+    </div>
 
 <div id="wrapper">
 <div class="camera">
