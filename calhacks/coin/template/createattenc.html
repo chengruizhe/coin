@@ -1,0 +1,260 @@
+<html>
+<head>
+<title>create group</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Slabo+27px|Volkhov" rel="stylesheet">
+
+<style media="screen" type="text/css">
+  #nav {
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #443642;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+  #navbar-item-logo {
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    top: 10px;
+    display: inline-block;
+    left: 250px;
+  }
+  .navbar-item, #navbar-item-l {
+    position: relative;
+    left: 100px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 10px 15px 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', serif;
+    cursor:pointer;
+    font-family: 'Josefin Sans', serif;
+  }
+  .navbar-item, #navbar-item-l: hover{
+    opacity: .8;
+  }
+  #navbar-item-l {
+    position: relative;
+  }
+  #navbar-item-search {
+	   /*padding-bottom: 10px;*/
+    display: inline-block;
+    position: absolute;
+    /*left: 100px;*/
+    top:3px;
+	  bottom: 3px;
+	  right: 0px;
+  }
+  .searchbar {
+    color: white;
+    height: 35px;
+    width: 100px;
+    padding: 5px 5px 5px 5px;
+    margin-left: 100px;
+    margin-right: 10px;
+    background: #443642;
+    border:0px solid #dbdbdb;
+    border-radius: 10px;
+  }
+  .searchbar:focus {
+    width: 200px;
+    margin-left: 0px;
+    transition: 0.3s;
+  }
+  .camera {
+    position: absolute;
+    text-align: center;
+    top: 120px;
+    left:50%;
+    transform: translateX(-50%);
+  }
+  #video {
+    position: relative;
+  }
+  #startbutton {
+    position: relative;
+    /*display: inline-block;*/
+    font-size: 14px;
+    color: white;
+    background: #3EB890;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 23px;
+    padding-right: 23px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    letter-spacing: 1px;
+    font-family: 'Josefin Sans', serif;
+  }
+  
+  #wrapper {
+    text-align: center;
+    z-index: 1
+  }
+
+  #canvas{
+    position: relative;
+    top: 360px;
+    left:50%;
+    transform: translateX(-50%);
+  }
+  .output{
+    position: relative;
+    top: 450px;
+    /*left:50%;
+    transform: translateX(-50%);*/
+  }*/
+</style>
+
+</head>
+<body background="geom2.jpg">
+
+<div id="nav">
+  	<div id="navbar">
+  			<!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+  			<div class="navbar-item">Attendence</div>
+  			<div class="navbar-item">Focus</div>
+        <div id="navbar-item-l">Group</div>
+  			<div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
+
+  		</div>
+  </div>
+
+<div id="wrapper">
+<div class="camera">
+    <video id="video">Video stream not available.</video>
+    <button id="startbutton">TAKE ATTENDENCE</button>
+</div>
+
+<canvas id="canvas" style='display: none;'>
+</canvas>
+
+  <div class="output">
+    <img id="photo" alt="The screen capture will appear in this box." style='display: none;'>
+  </div>
+
+</wrapper>
+</form>
+</body>
+<script type="text/javascript">
+	(function() {
+	  // The width and height of the captured photo. We will set the
+	  // width to the value defined here, but the height will be
+	  // calculated based on the aspect ratio of the input stream.
+	  var width = 320;    // We will scale the photo width to this
+	  var height = 0;     // This will be computed based on the input stream
+	  // |streaming| indicates whether or not we're currently streaming
+	  // video from the camera. Obviously, we start at false.
+	  var streaming = false;
+	  // The various HTML elements we need to configure or control. These
+	  // will be set by the startup() function.
+	  var video = null;
+	  var canvas = null;
+	  var photo = null;
+	  var startbutton = null;
+	  function startup() {
+	    video = document.getElementById('video');
+	    canvas = document.getElementById('canvas');
+	    photo = document.getElementById('photo');
+	    image = document.getElementById('image');
+	    startbutton = document.getElementById('startbutton');
+	    navigator.getMedia = ( navigator.getUserMedia ||
+	                           navigator.webkitGetUserMedia ||
+	                           navigator.mozGetUserMedia ||
+	                           navigator.msGetUserMedia);
+	    navigator.getMedia(
+	      {
+	        video: true,
+	        audio: false
+	      },
+	      function(stream) {
+	        if (navigator.mozGetUserMedia) {
+	          video.mozSrcObject = stream;
+	        } else {
+	          var vendorURL = window.URL || window.webkitURL;
+	          video.src = vendorURL.createObjectURL(stream);
+	        }
+	        video.play();
+	      },
+	      function(err) {
+	        console.log("An error occured! " + err);
+	      }
+	    );
+	    video.addEventListener('canplay', function(ev){
+	      if (!streaming) {
+	        height = video.videoHeight / (video.videoWidth/width);
+	        // Firefox currently has a bug where the height can't be read from
+	        // the video, so we will make assumptions if this happens.
+	        if (isNaN(height)) {
+	          height = width / (4/3);
+	        }
+	        video.setAttribute('width', width);
+	        video.setAttribute('height', height);
+	        canvas.setAttribute('width', width);
+	        canvas.setAttribute('height', height);
+	        streaming = true;
+	      }
+	    }, false);
+	    startbutton.addEventListener('click', function(ev){
+	      takepicture();
+	      ev.preventDefault();
+	    }, false);
+	    clearphoto();
+	  }
+	  // Fill the photo with an indication that none has been
+	  // captured.
+	  function clearphoto() {
+	    var context = canvas.getContext('2d');
+	    context.fillStyle = "#AAA";
+	    context.fillRect(0, 0, canvas.width, canvas.height);
+	    var data = canvas.toDataURL('image/png');
+	    photo.setAttribute('src', data);
+	  }
+	  // Capture a photo by fetching the current contents of the video
+	  // and drawing it into a canvas, then converting that to a PNG
+	  // format data URL. By drawing it on an offscreen canvas and then
+	  // drawing that to the screen, we can change its size and/or apply
+	  // other changes before drawing it.
+	  function takepicture() {
+	    var context = canvas.getContext('2d');
+	    if (width && height) {
+	      canvas.width = width;
+	      canvas.height = height;
+	      context.drawImage(video, 0, 0, width, height);
+	      var data = canvas.toDataURL('image/png');
+	      sendpic(data);
+	      photo.setAttribute('src', data);
+	    } else {
+	      clearphoto();
+	    }
+	  }
+	  function sendpic(data){
+	  	$.ajax({
+            url: '../creategroup/',
+            dataType: 'json',
+            method: 'POST',
+            data: {pic: JSON.stringify(data), name:'temp'},
+        })
+        .fail(function(data) {
+            window.alert("wrong");
+        })
+        .done(function(data) {
+        	window.alert("success");
+            // if (postData.unit != {{unit}})
+        })
+	  }
+	  // Set up our event listener to run the startup process
+	  // once loading is complete.
+	  window.addEventListener('load', startup, false);
+	})();
+</script>
+</html>
