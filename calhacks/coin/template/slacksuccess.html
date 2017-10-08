@@ -1,0 +1,122 @@
+<html>
+	<head>
+		<title>Attendence</title>
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Slabo+27px|Volkhov" rel="stylesheet">
+		<style media="screen" type="text/css">
+    /*.back{
+		position: absolute;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}*/
+  #nav {
+  	z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #443642;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+  #navbar-item-logo {
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    left:25px;
+    /*top: 10px;*/
+    display: inline-block;
+    /*left: 250px;*/
+  }
+  .navbar-item, #navbar-item-l {
+    position: relative;
+    left: 40px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 10px 15px 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', serif;
+    cursor:pointer;
+  }
+  .navbar-item, #navbar-item-l: hover{
+    opacity: .8;
+  }
+  #navbar-item-l {
+    position: relative;
+  }
+  #navbar-item-search {
+	   /*padding-bottom: 10px;*/
+    display: inline-block;
+    position: absolute;
+    /*left: 100px;*/
+    top:3px;
+	  bottom: 3px;
+	  right: 0px;
+  }
+  .searchbar {
+    color: white;
+    height: 35px;
+    width: 100px;
+    padding: 5px 5px 5px 5px;
+    margin-left: 100px;
+    margin-right: 10px;
+    background: #443642;
+    border:0px solid #dbdbdb;
+    border-radius: 10px;
+  }
+  .searchbar:focus {
+    width: 200px;
+    margin-left: 0px;
+    transition: 0.3s;
+  }
+  #wrapper {
+  	text-align: center;
+  }
+  #text{
+  	color: #443642;
+  	position: relative;
+  	top:300px;
+  	z-index: 2;
+  	font-size: 30px;
+  	letter-spacing: 2.5px;
+  	font-family: 'Josefin Sans', serif;
+  	/*text-decoration: underline;
+    text-decoration-color: #70CADB;*/
+  }
+ 
+  #logo{
+  	position: relative;
+  	top:90px;
+  }
+	</style>
+
+	</head>
+
+	<body background="/media/geom2.jpg">
+		<div id="nav">
+  			<div id="navbar">
+  			<div id="navbar-item-logo"><img src="/media/logo.png" height="51px"></div>
+  			<div class="navbar-item">Attendence</div>
+  			<div class="navbar-item">Focus</div>
+       		 <div id="navbar-item-l">Group</div>
+  			<div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
+
+  			</div>
+  		</div>
+
+
+  		<div id="wrapper"><p id='text'>
+  			Here is your <a href=""> slack</a> channel.
+  		</p>
+
+  		<img id='logo' src="/media/slack.svg" height="51px" width="101px"></div>
+
+	</body>
+
+
+
+</html>
