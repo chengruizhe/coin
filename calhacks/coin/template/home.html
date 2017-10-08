@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,12 +12,6 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <style media="screen" type="text/css">
 /*  .body {
@@ -116,86 +111,20 @@
     margin-left: 0px;
     transition: 0.3s;}
 
-  .photo{
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto; 
-    overflow: hidden;
-    position: relative;
-    top: 15px;
+    #imgbg {
+    	position: absolute;
+    	left:0;
+    	right:0;
+    	top:50px;
+    	bottom:0;
 
-  }
-
-  .temp {
-    text-align: center;
-    position: relative;
-
-  }
-
-  .name {
-    /*background: white;*/
-    font-family: 'Josefin Sans', serif;
-    color: #443642;
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    padding: 10px 10px 0;
-    position: relative;
-    top:12px;
-  }
-
-  .container {
-    position: relative;
-    top:70px; 
-  }
-
-  h2 {
-    font-size: 25px;
-    font-family: 'Josefin Sans', serif;
-    position: relative;
-    left:8px;
-  }
-
-  body {
-    color:#443642;
-  }
-
-
-  .thumbnail{
-    background: #F5F5F5;
-    height:310px;
-
-  }
-
-  .a {
-    position: absolute;
-    left:50%;
-    transform: translateX(-50%);
-    font-family: 'Josefin Sans', serif;
-    color: #3EB890;
-    font-size: 16px;
-  }
-
-  .b {
-    position: absolute;
-    left:50%;
-    transform: translateX(-50%);
-    font-family: 'Josefin Sans', serif;
-    color: #E01765;
-    font-size: 16px;
-  }
-
-
-
+    }
 
   </style>
 
   </head>
-
-  <body background="/media/geom2.jpg">
+  <body>
+	<!-- <body background="/media/geom2.jpg"> -->
     
   <div id="nav">
     <div id="navbar">
@@ -210,47 +139,11 @@
       </div>
     </div>
     
-<div class="container">
-  <h2>Students</h2>
-  <!-- <p>The .thumbnail class can be used to display an image gallery.</p>
-  <p>The .caption class adds proper padding and a dark grey color to text inside thumbnails.</p> -->
-  <!-- <p>Click on the images to enlarge them.</p> -->
+
+    <div id='imgbg'> <img src="/media/pictitle.png" width="1500px"></div>
+	<!-- <div id='imgbg'> <img src="pictitle.png" width="1500px"></div> -->
 
 
-  <div class="row">
-
-  {% for student in students %}
-
-    <div class="col-md-4">
-      <div class="thumbnail">
-        <a class='temp' href="{{student.picture.url}}" target="_blank">
-          <img class='photo' src="{{student.picture.url}}" alt="no image" width = "180">
-          <div class="caption">
-            <p class='name'>{{student.name}}</p>
-
-          </div>
-        </a>
-
-      
-        {%if student.present%}
-        <p class='a' id = "{{student.name}}">Present</p>
-        {%else%}
-        <p class='b' id = "{{student.name}}">Absent</p>
-        {%endif%}
-
-
-      </div>
-    </div>
-
-    {% endfor %}
-  </div>
-</div>
 
 </body>
-<!-- <script type="text/javascript">
-  present_students = data['present'];
-  for(i = 0; i < present_students.length; i++){
-    $("#" + present_students[i]).text("present");
-  }
-</script> -->
 </html>

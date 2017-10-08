@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>create group</title>
+<title>Sentiment Analysis</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Slabo+27px|Volkhov" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -23,13 +23,14 @@
   #navbar-item-logo {
     margin: 10px 10px 10px 10px;
     position: relative;
-    top: 10px;
+    left:25px;
+    /*top: 10px;*/
     display: inline-block;
-    left: 250px;
+    /*left: 250px;*/
   }
   .navbar-item, #navbar-item-l {
     position: relative;
-    left: 100px;
+    left: 40px;
     display: inline-block;
     color: white;
     text-align: center;
@@ -65,11 +66,11 @@
   }
 
   #navbar-item-search {
-     /*padding-bottom: 10px;*/
+    /*padding-bottom: 10px;*/
     display: inline-block;
     position: absolute;
     /*left: 100px;*/
-    top:3px;
+    top:15px;
     bottom: 3px;
     right: 0px;
   }
@@ -106,7 +107,7 @@
 
   #startbutton {
     position: absolute;
-    top:120px;
+    top:160px;
     left:15px;
     /*display: inline-block;*/
     font-size: 14px;
@@ -127,6 +128,7 @@
 
   #graph {
     position: relative;
+    left:50px;
     top: 80px;
     margin-bottom: 15px;
 
@@ -148,10 +150,10 @@
     
   <div id="nav">
     <div id="navbar">
-        <!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+        <div id="navbar-item-logo"><img src="/media/logo.png" height="51px"></div>
         <div class="navbar-item"><a style="text-decoration:none"  href='../createattend'>Take Attendance</a></div>
-        <div class="navbar-item"><a href='../attendance'>Present Students</a></div>
-        <div class="navbar-item"><a href='../monitor'>Monitor</a></div>
+        <div class="navbar-item"><a href='../attendance'>See Students</a></div>
+        <div class="navbar-item"><a href='../monitor'>Sentiment</a></div>
         <div class="navbar-item"><a href='../creategroup'>Create Group</a></div>
         <div id="navbar-item-l"><a href='../seegps'>See Groups</a></div>
         <div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
@@ -168,16 +170,16 @@
 <canvas id="canvas" style='display: none;'>
 </canvas>
 
-<iframe  id = "graph" src="/img/" width="360" height="360">
+<iframe id = "graph" src="/img/" width="700" height="600">
   <p>Your browser does not support iframes.</p>
 </iframe>
 
 
-  <div class="output">
+ <!--  <div class="output">
     <p> temp </p>
     <img id="photo" alt="The screen capture will appear in this box." style='display: none;'>
   </div>
- </div>
+ </div> -->
 
 
 </body>
