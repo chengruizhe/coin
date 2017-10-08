@@ -8,7 +8,7 @@ class DrawRectangle():
 		self.img = img
 		self.rectangles = rectangles
 
-	def produceImg(self):
+	def produceImg(self, path = '/Users/ryancheng/Desktop/calhacks/coin/media/plot.png'):
 		print("URL: " + self.img)
 		im = np.array(Image.open(self.img), dtype=np.uint8)
 
@@ -45,7 +45,7 @@ class DrawRectangle():
 		ax.xaxis.set_visible(False)
 		ax.yaxis.set_visible(False)
 
-		fig.savefig('/Users/ryancheng/Desktop/calhacks/coin/media/plot.png', bbox_inches = 'tight', pad_inches = 0)
+		fig.savefig(path, bbox_inches = 'tight', pad_inches = 0)
 
 #draw = DrawRectangle("/Users/ryancheng/Desktop/calhacks/coin/media/../media/studygroups/temp_vx4N0oW.png", [])
 #draw.produceImg()

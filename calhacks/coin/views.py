@@ -121,20 +121,77 @@ def monitor(request):
 			picture = request.POST.get('pic') #base64
 			form, imgstr = picture.split(';base64,') 
 			ext = form.split('/')[-1]
-			data = ContentFile(base64.b64decode(imgstr), name = 'temp' + '.'+ext)
 
 			with open('/Users/ryancheng/Desktop/calhacks/coin/media/monitor/status.png', 'wb') as fh:
 				fh.write(base64.b64decode(imgstr))
 			return JsonResponse({'status': 200})
 		#if request.POST.get('action') == 'end':
-
+@csrf_exempt
 def img(request):
 	if request.method == 'GET':
 		return render(request, 'img.html')
-
+@csrf_exempt
 def createattend(request):
 	if request.method == 'GET':
 		return render(request, 'createattend.html')
+	if request.method == 'POST':
+		if request.POST.get('pic'):
+			picture = request.POST.get('pic') #base64
+			form, imgstr = picture.split(';base64,') 
+			ext = form.split('/')[-1]
+			with open('/Users/ryancheng/Desktop/calhacks/coin/media/attendance/attendance.png', 'wb') as fh:
+				fh.write(base64.b64decode(imgstr))
+
+			binImg = base64.b64decode(imgstr)
+			service = FaceAPI.FaceAPI()
+			detectedFaces, detectedRectangles = service.detectFace(binImg)
+
+			if detectedFaces:
+				result = service.identifyFace(detectedFaces, 1)
+				matchResult = json.loads(result.decode('utf8'))
+			else:
+				matchResult = []
+
+			faceAndStudentId = {}
+			for person in matchResult:
+				print(person)
+				if person["candidates"]:
+					tempID = person["candidates"][0]["personId"]
+				else:
+					tempID = None
+				faceAndStudentId[person["faceId"]] = tempID
+
+			#faceAndStudentId : {faceID, StudentID}
+			#dectedRectangles : {faceID, rectangle}
+			namedRectangle = []
+			for faceId in faceAndStudentId:
+				studentId = faceAndStudentId[faceId]
+				if studentId:
+					name = Student.objects.filter(pk = studentId).values_list("name", flat = True)[0]
+				else:
+					name = "Unknown Person"
+				namedRectangle.append((name, detectedRectangles[faceId]))
+
+			student_ids = [faceAndStudentId[face] for face in faceAndStudentId.keys() if faceAndStudentId[face]]
+			num = len(student_ids)
+			#draw = DrawRectangle.DrawRectangle(new_group.imageField.url)
+			draw = DrawRectangle.DrawRectangle('/Users/ryancheng/Desktop/calhacks/coin/media/attendance/attendance.png', namedRectangle)
+			#draw = DrawRectangle.DrawRectangle("/Users/ryancheng/Desktop/calhacks/calhacks/coin/plot.png", detectedRectangles)
+			draw.produceImg('/Users/ryancheng/Desktop/calhacks/coin/media/attendance/attendance.png')
+			return JsonResponse({'status':200, 'student_ids':student_ids , 'num':num})
+		if request.POST.get('db'):
+
+			student_ids = json.loads(request.POST.get('student_ids'))
+			print(student_ids)
+			Student.objects.all().update(present = False)
+			for student in student_ids:	
+				print(student)
+				student = Student.objects.get(person_id = student)
+				student.present = True
+				student.save()
+			return JsonResponse({'status':200})
+			
+
 
 
 

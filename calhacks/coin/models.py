@@ -16,6 +16,7 @@ class Student(models.Model):
 	email = models.CharField(max_length = 30)
 	username = models.CharField(max_length = 20)
 	pwd = models.CharField(max_length = 30)
+	present = models.BooleanField(default = False)
 	study_groups = models.ManyToManyField(StudyGroup)
 
 	def __str__(self):

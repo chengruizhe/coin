@@ -5,7 +5,7 @@ def getResult(img):
 
     headers = {
         # Request headers. Replace the placeholder key below with your subscription key.
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': 'f490e3d2d928423d9bec87f85b15809a',
     }
 
@@ -75,10 +75,8 @@ def run():
         """
 
         # result = json.loads(img).decode("utf8")
-        result = json.loads(getResult(img).decode("utf8"))
+        result = json.loads(getResult(getImage()).decode("utf8"))
         taxis.append(time.time() - t0)
-        print("result")
-        print(result)
         angert,contemptt, disgustt, feart, happinesst, neutralt, sadnesst, surpriset = [0 for i in range(8)]
         for i in range(len(result)):
             angert += result[i]['scores']['anger']
