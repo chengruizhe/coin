@@ -96,81 +96,39 @@
     letter-spacing: 1px;
     font-family: 'Josefin Sans', serif;
   }
-  /*#wrapper {
-    text-align: center;
-  }
-  #canvas{
-    position: relative;
-    top: 360px;
-    left:50%;
-    transform: translateX(-50%);
-  }
-  .output{
-    position: relative;
-    top: 450px;
-    /*left:50%;
-    transform: translateX(-50%);*/
-  }*/
-</style>
+  </style>
+ </head>
 
-</head>
 <body>
-
 <div id="nav">
   	<div id="navbar">
   			<!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
   			<div class="navbar-item">Attendence</div>
   			<div class="navbar-item">Focus</div>
         <div id="navbar-item-l">Group</div>
-  			<div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
+  			<div id="navbar-item-search">
+  			<input type="text" class="searchbar" ame="search" placeholder="Search..">
+  			</div>
 
-  		</div>
-  </div>
+  	</div>
+ </div>
 
 <div id="wrapper">
 <div class="camera">
     <video id="video">Video stream not available.</video>
-    <button id="startbutton">Snap!</button>
+    <button id="startbutton">Start Sentiment analysis!</button>
 </div>
 
 <canvas id="canvas" style='display: none;'>
 </canvas>
-
+<iframe  id = "#graph" src="/img/" width="500" height="500">
+  <p>Your browser does not support iframes.</p>
+</iframe>
   <div class="output">
     <img id="photo" alt="The screen capture will appear in this box." style='display: none;'>
   </div>
+ </div>
 
-  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" arialabelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            	<h5 class="modal-title" id="exampleModalLabel">Group Photo</h5>
-            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          			<span aria-hidden="true">&times;</span>
-        		</button>
-            </div>
-            <div class="modal-body">
-            	<div>
-            		<img id = 'confirmPic' src='' alt='loading' style='width:100%'/>
-            	</div>
-            	<form>
-		          	<div class="form-group">
-		            	<label for="group-name" class="form-control-label">Group name:</label>
-		            	<input type="text" class="form-control" id="group-name">
-		          	</div>
-		          	<div class="form-group">
-		            	<label for="group-description" class="form-control-label">Description:</label>
-		            	<input type ="text" class="form-control" id="group-description"></textarea>
-		          	</div>
-		        </form>
-		    </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button " id="submitdb" class="btn btn-success success">Submit</button>
-            </div>
-        </div>
-        </div>
-    </div>
 </body>
 <script type="text/javascript">
 	(function() {
@@ -235,7 +193,7 @@
 	      }
 	    }, false);
 	    startbutton.addEventListener('click', function(ev){
-	      takepicture();
+	      startRecording();
 	      ev.preventDefault();
 	    }, false);
 	    clearphoto();
@@ -262,61 +220,35 @@
 	      context.drawImage(video, 0, 0, width, height);
 	      var data = canvas.toDataURL('image/png');
 	      sendpic(data);
-	      photo.setAttribute('src', data);
-	      //confirmPic.setAttribute('src', data);
+	      //photo.setAttribute('src', data);
 	    } else {
 	      clearphoto();
 	    }
 	  }
 	  function sendpic(data){
 	  	$.ajax({
-            url: '../creategroup/',
+            url: '../monitor/',
             dataType: 'json',
             method: 'POST',
-            data: { pic :JSON.stringify(data)}
+            data: { action: 'pic', pic : data}
         })
 	    .fail(function(data) {
 	    	window.alert('wrong');
-	    }).done(function(data){
-	    	group_id = data['group_id']
-	    	confirmPic.setAttribute('src', '');	
-	    	$('#confirmModal').modal('show');
-	    	confirmPic.setAttribute('src', '/media/plot.png');
-	    })
+	    });
 	  }
-	  window.addEventListener('load', startup, false);
-	 //  $('confirmModal').on('show.bs.modal', function(event){
-		// postData = {name: $('#group-name').val(), 
-		// 			description: $('##group-description').val(),
-		// 			id : group_id}
-		// $.ajax({
-		// 	url: '../ceategroup/',
-		// 	dataType: 'json',
-		// 	method: 'POST',
-		// 	data: {confirm : JSON.stringify(postData)}
-		// });
-	 //  });
-	  $("#confirmModal").on("hidden.bs.modal", function(event) {
-    	location.reload();
-	  });
-	  // Set up our event listener to run the startup process
-	  // once loading is complete.
-	  $('#submitdb').on('click', function(event){
+
+	  function startRecording(data){
+	  	var interval = window.setInterval(takepicture, 3000);
 	  	$.ajax({
-	  		url: '../creategroup/',
-	  		dataType: 'json',
-	  		method: 'POST',
-	  		data: {name: $('#group-name').val(), description:$('#group-description').val(), group_id: group_id}
-	  	}).done(function(data){
-	  		link = data['link']
-	  		$.ajax({
-            url: '../slack/',
+            url: '../monitor/',
             dataType: 'json',
-            method: 'GET',
-            data: {pic :link}
-        	});
-	  	});
-	  });
-	})();
+            method: 'POST',
+            data: {action : 'start'}
+        });
+        //$("#graph").show();
+	  }
+
+	  window.addEventListener('load', startup, false);
+	 })();
 </script>
 </html>

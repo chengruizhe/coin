@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style media="screen" type="text/css">
+/*  .body {
+    background: url("{{ STATIC_URL }}/geom2.jpg");
+  }
+*/
+/*  .back{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }*/
+  #nav {
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #443642;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+  #navbar-item-logo {
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    top: 10px;
+    display: inline-block;
+    left: 250px;
+  }
+  .navbar-item, #navbar-item-l {
+    position: relative;
+    left: 100px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 10px 15px 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', serif;
+    cursor:pointer;
+  }
+  .navbar-item, #navbar-item-l: hover{
+    opacity: .8;
+  }
+  #navbar-item-l {
+    position: relative;
+  }
+  #navbar-item-search {
+     /*padding-bottom: 10px;*/
+    display: inline-block;
+    position: absolute;
+    /*left: 100px;*/
+    top:3px;
+    bottom: 3px;
+    right: 0px;
+  }
+  .searchbar {
+    color: white;
+    height: 35px;
+    width: 100px;
+    padding: 5px 5px 5px 5px;
+    margin-left: 100px;
+    margin-right: 10px;
+    background: #443642;
+    border:0px solid #dbdbdb;
+    border-radius: 10px;
+  }
+  .searchbar:focus {
+    width: 200px;
+    margin-left: 0px;
+    transition: 0.3s;}
+  .photo{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    overflow: hidden;
+    display:relative;
+  }
+  .name {
+    /*background: white;*/
+    font-family: 'Josefin Sans', serif;
+    color: #443642;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 10px 10px 0;
+  }
+  </style>
+
+  </head>
+
+  <body>
+    
+  <div id="nav">
+    <div id="navbar">
+        <!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+        <div class="navbar-item">Attendence</div>
+        <div class="navbar-item">Focus</div>
+        <div id="navbar-item-l">Group</div>
+        <div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
+
+      </div>
+    </div>
+    
+<div class="container">
+  <h2>Students present</h2>
+  <!-- <p>The .thumbnail class can be used to display an image gallery.</p>
+  <p>The .caption class adds proper padding and a dark grey color to text inside thumbnails.</p> -->
+  <!-- <p>Click on the images to enlarge them.</p> -->
+
+
+  <div class="row">
+
+  {% for student in students %}
+
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <a href="{{student.picture.url}}" target="_blank">
+          <img class='photo' src="{{student.picture.url}}" alt="no image">
+          <div class="caption">
+            <p class='name'>{{student.name}}</p>
+
+          </div>
+        </a>
+        <p id = "{{student.name}}"> Present </p>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+  present_students = data['present'];
+  for(i = 0; i < present_students.length; i++){
+    $("#" + present_students[i]).text("present");
+  }
+</script>
+</html>

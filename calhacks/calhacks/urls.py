@@ -24,5 +24,9 @@ urlpatterns = [
     url(r'^index/', views.index, name='index'),
     url(r'^creategroup/', views.creategroup, name='creategroup'),
     url(r'^attendance/', views.attendance, name = 'attendance'),
+    url(r'^slack/', views.slack, name = 'slack'),
+    url(r'^monitor/', views.monitor, name = 'monitor'),
+    url(r'^img/', views.img, name = 'img'),
+    url(r'^createattend/', views.createattend, name = 'createattend'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
