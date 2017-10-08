@@ -142,13 +142,15 @@ class FaceAPI():
             data = response.read()
             dataList = json.loads(data.decode('utf8'))
             faceIds = []
+            faceRectangles = {}
             print ("hahahahahahahahahahahahahahahahahah")
             print(dataList)
             for image in dataList:
                 faceIds.append(image['faceId'])
+                faceRectangles[image['faceId']] = image["faceRectangle"]
             print(data)
             conn.close()
-            return faceIds
+            return faceIds, faceRectangles
         except Exception as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
 

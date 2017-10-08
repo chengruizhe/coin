@@ -26,7 +26,7 @@ SECRET_KEY = 'bjjj6n2p@o*$=p8(8=!29v+r7ic@qd6irx!znt89h4jrfxblq='
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CA_DEBUG_TRANSACTIONS=1
 
 # Application definition
 
@@ -119,6 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/ryancheng/Desktop/calhacks/coin/static/'
+STATIC_ROOT = '/Users/ryancheng/Desktop/calhacks/calhacks/coin/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/Users/ryancheng/Desktop/calhacks/coin/media/'
