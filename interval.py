@@ -33,9 +33,14 @@ def getResult(img):
 def uploadImage():  # Uploads the current keyframe
     return
 def getImage():     # Gets the current keyframe from webcam
-    return
+    PATH = ''
+    from PIL import Image
+    img = Image.open(PATH)
+    return img
 def getFlag():      # Gets the boolean flag whether the current session has terminated: True if terminated
-    return
+    PATH = ''
+    flag = open(PATH, 'r')
+    return flag
 
 import time, json
 import matplotlib.pyplot as plt
