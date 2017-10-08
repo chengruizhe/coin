@@ -1,16 +1,143 @@
 <html>
 	<head>
 		<title>Attendence</title>
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Slabo+27px|Volkhov" rel="stylesheet">
+		<style media="screen" type="text/css">
+
+  #nav {
+  	z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #443642;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+  #navbar-item-logo {
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    top: 10px;
+    display: inline-block;
+    left: 250px;
+  }
+  .navbar-item, #navbar-item-l {
+    position: relative;
+    left: 100px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 10px 15px 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', serif;
+    cursor:pointer;
+  }
+
+  .navbar-item, #navbar-item-l: hover{
+    opacity: .8;
+  }
+  #navbar-item-l {
+    position: relative;
+  }
+  #navbar-item-search {
+	   /*padding-bottom: 10px;*/
+    display: inline-block;
+    position: absolute;
+    /*left: 100px;*/
+    top:3px;
+	  bottom: 3px;
+	  right: 0px;
+  }
+  .searchbar {
+    color: white;
+    height: 35px;
+    width: 100px;
+    padding: 5px 5px 5px 5px;
+    margin-left: 100px;
+    margin-right: 10px;
+    background: #443642;
+    border:0px solid #dbdbdb;
+    border-radius: 10px;
+  }
+  .searchbar:focus {
+    width: 200px;
+    margin-left: 0px;
+    transition: 0.3s;
+  }
+
+   #wrapper {
+   	position: relative;
+   	top: 150px;
+    text-align: center;
+    z-index: 1;
+  }
+
+
+  #studt-wrapper{
+  	position: relative;
+
+
+  }
+
+  .studt {
+  	display: inline-block;
+  	margin-left: 30px;
+  	margin-right: 30px;
+  	margin-bottom: 20px;
+  	margin-top:5px;
+
+  }
+
+  .photo{
+  	width: 150px;
+  	height: 200px;
+  }
+
+  .name {
+  	background: white;
+  	width: 100px;
+	font-family: 'Josefin Sans', serif;
+  	color: #3EB890;
+  	font-size: 18px;
+  	padding-left: 15px;
+  	padding-right: 15px;
+  	padding-bottom: 5px;
+  	padding-top: 5px;
+  }
+
+
+	</style>
 	</head>
+
+
 	<body>
-		<div>
+
+
+	<div id="nav">
+  	<div id="navbar">
+  			<!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+  			<div class="navbar-item">Attendence</div>
+  			<div class="navbar-item">Focus</div>
+        <div id="navbar-item-l">Group</div>
+  			<div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
+
+  		</div>
+  	</div>
+
+  	<div id='wrapper'>
+		<div id = 'studt-wrapper'>
 		{% for student in students %}
-			<div>
-			<p>{{student.name}}</p>
-			<img src="{{student.picture.url}}" alt="no image" style="width:50%"/>
+			<div class='studt'>
+			<!-- <p>{{student.name}}</p> -->
+			<img class='photo' src="{{student.picture.url}}" alt="no image" style="width:50%"/>
+			<p class='name'>{{student.name}}</p>
 			</div>
 		{% endfor %}
 		</div>
+<!-- 
 		<div>
 		{% for group in groups %}
 			<div>
@@ -18,6 +145,8 @@
 			<img src="{{group.picture.url}}" alt="no image" style="width:50%"/>
 			</div>
 		{% endfor%}
-		</div>
+		</div> -->
+	</div>
+
 	</body>
 </html>
