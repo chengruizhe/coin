@@ -7,7 +7,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <style media="screen" type="text/css">
+  
+
   #nav {
+    z-index: 3;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -36,22 +39,39 @@
     text-transform: uppercase;
     font-family: 'Josefin Sans', serif;
     cursor:pointer;
-    font-family: 'Josefin Sans', serif;
   }
-  .navbar-item, #navbar-item-l: hover{
+  .navbar-item:hover {
     opacity: .8;
   }
+
+  #navbar-item-l:hover {
+    opacity: .8;
+  }
+
+
+  a:link {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+  color:white;}
+
+  a:visited {
+    text-decoration:  none;
+    color:white;
+  }
+
+
   #navbar-item-l {
     position: relative;
   }
+
   #navbar-item-search {
-	   /*padding-bottom: 10px;*/
+     /*padding-bottom: 10px;*/
     display: inline-block;
     position: absolute;
     /*left: 100px;*/
     top:3px;
-	  bottom: 3px;
-	  right: 0px;
+    bottom: 3px;
+    right: 0px;
   }
   .searchbar {
     color: white;
@@ -67,20 +87,27 @@
   .searchbar:focus {
     width: 200px;
     margin-left: 0px;
-    transition: 0.3s;
+    transition: 0.3s;}
+
+  #wrapper {
+    text-align: center;
   }
+
   .camera {
     position: absolute;
     text-align: center;
-    top: 120px;
-    left:50%;
-    transform: translateX(-50%);
+    top: 105px;
+    left: 50px;
   }
+
   #video {
     position: relative;
   }
+
   #startbutton {
-    position: relative;
+    position: absolute;
+    top:120px;
+    left:15px;
     /*display: inline-block;*/
     font-size: 14px;
     color: white;
@@ -96,22 +123,41 @@
     letter-spacing: 1px;
     font-family: 'Josefin Sans', serif;
   }
+
+
+  #graph {
+    position: relative;
+    top: 80px;
+    margin-bottom: 15px;
+
+  }
+
+
+  .output {
+    position: relative;
+    top:80px;
+    margin-top: 10px;
+
+
+  }
+
   </style>
  </head>
 
-<body>
-<div id="nav">
-  	<div id="navbar">
-  			<!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
-  			<div class="navbar-item">Attendence</div>
-  			<div class="navbar-item">Focus</div>
-        <div id="navbar-item-l">Group</div>
-  			<div id="navbar-item-search">
-  			<input type="text" class="searchbar" ame="search" placeholder="Search..">
-  			</div>
+<body background="/media/geom2.jpg">
+    
+  <div id="nav">
+    <div id="navbar">
+        <!-- <div id="navbar-item-logo"><img src="assets/img/logo.png" height="51px" width="101px"></div> -->
+        <div class="navbar-item"><a style="text-decoration:none"  href='../createattend'>Take Attendance</a></div>
+        <div class="navbar-item"><a href='../attendance'>Present Students</a></div>
+        <div class="navbar-item"><a href='../monitor'>Monitor</a></div>
+        <div class="navbar-item"><a href='../creategroup'>Create Group</a></div>
+        <div id="navbar-item-l"><a href='../seegps'>See Groups</a></div>
+        <div id="navbar-item-search"><input type="text" class="searchbar" ame="search" placeholder="Search.."></div>
 
-  	</div>
- </div>
+      </div>
+    </div>
 
 <div id="wrapper">
 <div class="camera">
@@ -121,13 +167,18 @@
 
 <canvas id="canvas" style='display: none;'>
 </canvas>
-<iframe  id = "#graph" src="/img/" width="500" height="500">
+
+<iframe  id = "graph" src="/img/" width="360" height="360">
   <p>Your browser does not support iframes.</p>
 </iframe>
+
+
   <div class="output">
+    <p> temp </p>
     <img id="photo" alt="The screen capture will appear in this box." style='display: none;'>
   </div>
  </div>
+
 
 </body>
 <script type="text/javascript">
@@ -135,7 +186,7 @@
 	  // The width and height of the captured photo. We will set the
 	  // width to the value defined here, but the height will be
 	  // calculated based on the aspect ratio of the input stream.
-	  var width = 600;    // We will scale the photo width to this
+	  var width = 200;    // We will scale the photo width to this
 	  var height = 0;     // This will be computed based on the input stream
 	  // |streaming| indicates whether or not we're currently streaming
 	  // video from the camera. Obviously, we start at false.
